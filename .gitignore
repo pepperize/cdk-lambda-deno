@@ -56,3 +56,4 @@ tsconfig.json
 !/API.md
 .idea/
 *.iml
+src/layer.zip

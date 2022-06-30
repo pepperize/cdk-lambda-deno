@@ -1,5 +1,5 @@
 {
-  "name": "cdk-lambda-deno",
+  "name": "@pepperize/cdk-lambda-deno",
   "repository": {
     "type": "git",
     "url": "https://github.com/patrick.florek/cdk-lambda-deno.git"
@@ -40,7 +40,7 @@
     "@types/node": "^12",
     "@typescript-eslint/eslint-plugin": "^5",
     "@typescript-eslint/parser": "^5",
-    "aws-cdk-lib": "2.1.0",
+    "aws-cdk-lib": "2.29.1",
     "constructs": "10.0.5",
     "eslint": "^8",
     "eslint-config-prettier": "^8.5.0",
@@ -59,11 +59,11 @@
     "projen": "^0.58.17",
     "standard-version": "^9",
     "ts-jest": "^28.0.5",
-    "ts-node": "^9",
+    "ts-node": "^10",
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
-    "aws-cdk-lib": "^2.1.0",
+    "aws-cdk-lib": "^2.29.1",
     "constructs": "^10.0.5"
   },
   "keywords": [
@@ -71,6 +71,9 @@
   ],
   "main": "lib/index.js",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
   "version": "0.0.0",
   "jest": {
     "testMatch": [
