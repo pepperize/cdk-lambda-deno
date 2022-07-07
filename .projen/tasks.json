@@ -122,7 +122,7 @@
       "description": "Format with prettier",
       "steps": [
         {
-          "exec": "prettier --write src/{**/,}*.ts test/{**/,}*.ts .projenrc.js README.md"
+          "exec": "prettier --write example/{**/,}*.ts src/{**/,}*.ts test/{**/,}*.ts .projenrc.ts CONTRIBUTING.md README.md"
         }
       ]
     },
@@ -144,6 +144,39 @@
       "steps": [
         {
           "spawn": "package:js"
+        },
+        {
+          "spawn": "package:java"
+        },
+        {
+          "spawn": "package:python"
+        },
+        {
+          "spawn": "package:dotnet"
+        }
+      ]
+    },
+    "package:dotnet": {
+      "name": "package:dotnet",
+      "description": "Create dotnet language bindings",
+      "steps": [
+        {
+          "exec": "jsii_version=$(node -p \"JSON.parse(fs.readFileSync('.jsii')).jsiiVersion.split(' ')[0]\")"
+        },
+        {
+          "exec": "npx jsii-pacmak@$jsii_version -v --target dotnet"
+        }
+      ]
+    },
+    "package:java": {
+      "name": "package:java",
+      "description": "Create java language bindings",
+      "steps": [
+        {
+          "exec": "jsii_version=$(node -p \"JSON.parse(fs.readFileSync('.jsii')).jsiiVersion.split(' ')[0]\")"
+        },
+        {
+          "exec": "npx jsii-pacmak@$jsii_version -v --target java"
         }
       ]
     },
@@ -159,12 +192,27 @@
         }
       ]
     },
+    "package:python": {
+      "name": "package:python",
+      "description": "Create python language bindings",
+      "steps": [
+        {
+          "exec": "jsii_version=$(node -p \"JSON.parse(fs.readFileSync('.jsii')).jsiiVersion.split(' ')[0]\")"
+        },
+        {
+          "exec": "npx jsii-pacmak@$jsii_version -v --target python"
+        }
+      ]
+    },
     "post-compile": {
       "name": "post-compile",
       "description": "Runs after successful compilation",
       "steps": [
         {
           "spawn": "docgen"
+        },
+        {
+          "exec": "npx copyfiles -f src/layer.zip lib"
         }
       ]
     },

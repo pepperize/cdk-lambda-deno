@@ -4,7 +4,7 @@ FROM public.ecr.aws/lambda/provided:latest
 # version
 #
 
-ARG DENO_VERSION=v1.23.1
+ARG DENO_VERSION=v1.23.3
 ARG DENO_TARGET=x86_64-unknown-linux-gnu
 
 USER root

@@ -2,6 +2,6 @@
 # yarn lockfile v1
 
 
-"deno-lambda@https://github.com/hayd/deno-lambda.git#1.23.1":
+"deno-lambda@https://github.com/hayd/deno-lambda.git#1.23.3":
   version "0.0.0"
-  resolved "https://github.com/hayd/deno-lambda.git#29dcfbb5cc6453274aefc8390f6428c5d4056f5f"
+  resolved "https://github.com/hayd/deno-lambda.git#f13243ec55deb50787a7b1bd03513dd46d7cce09"

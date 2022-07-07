@@ -1,5 +1,5 @@
 {
   "devDependencies": {
-    "deno-lambda": "https://github.com/hayd/deno-lambda.git#1.23.1"
+    "deno-lambda": "https://github.com/hayd/deno-lambda.git#1.23.3"
   }
 }

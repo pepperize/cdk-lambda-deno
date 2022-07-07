@@ -1,17 +1,30 @@
-import { Template } from '@aws-cdk/assertions';
-import { Stack } from '@aws-cdk/core';
-import { NodeProxyAgentLayer } from '../lib';
-import { DenoLayer } from "../src/deno-layer.ts";
+import { Stack } from "aws-cdk-lib";
+import { Template } from "aws-cdk-lib/assertions";
+import { DenoLayer } from "../src";
 
-test('synthesized to a layer version', () => {
-  // Given
-  const stack = new Stack();
+describe("DenoLayer", () => {
+  it("should match snapshot", () => {
+    // Given
+    const stack = new Stack();
 
-  // When
-  new DenoLayer(stack, 'Layer');
+    // When
+    DenoLayer.getOrCreate(stack);
 
-  // Then
-  Template.fromStack(stack).hasResourceProperties('AWS::Lambda::LayerVersion', {
-    Description: '/bin/deno',
+    // Then
+    const template = Template.fromStack(stack);
+
+    expect(template.toJSON()).toMatchSnapshot();
+  });
+  it("should synthesize to a layer version", () => {
+    // Given
+    const stack = new Stack();
+
+    // When
+    new DenoLayer(stack, "Layer");
+
+    // Then
+    Template.fromStack(stack).hasResourceProperties("AWS::Lambda::LayerVersion", {
+      Description: "/bin/deno",
+    });
   });
 });

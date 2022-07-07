@@ -21,3 +21,7 @@ dist
 tsconfig.tsbuildinfo
 /.eslintrc.json
 !.jsii
+example/
+layer/
+src/layer.zip
+!lib/layer.zip
