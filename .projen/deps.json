@@ -10,6 +10,10 @@
       "type": "build"
     },
     {
+      "name": "@types/mock-fs",
+      "type": "build"
+    },
+    {
       "name": "@types/node",
       "version": "^12",
       "type": "build"
@@ -88,6 +92,10 @@
     },
     {
       "name": "json-schema",
+      "type": "build"
+    },
+    {
+      "name": "mock-fs",
       "type": "build"
     },
     {

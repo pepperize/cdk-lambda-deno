@@ -13,7 +13,7 @@ const project = new AwsCdkConstructLibrary({
 
   projenrcTs: true,
 
-  devDeps: ["@pepperize/projen-awscdk-construct"],
+  devDeps: ["@pepperize/projen-awscdk-construct", "@types/mock-fs", "mock-fs"],
 
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
@@ -47,10 +47,8 @@ project.npmignore?.exclude("layer/");
 project.npmignore?.exclude("src/layer.zip");
 project.npmignore?.include("lib/layer.zip");
 
-project.postCompileTask.exec("npx copyfiles -f src/layer.zip lib");
-
 project.formatTask.reset(
-  "prettier --write example/{**/,}*.ts src/{**/,}*.ts test/{**/,}*.ts .projenrc.ts CONTRIBUTING.md README.md"
+  "prettier --write example/**/*.ts src/**/*.ts test/**/*.ts .projenrc.ts CONTRIBUTING.md README.md"
 );
 
 project.gitpod?.addCustomTask({

@@ -122,7 +122,7 @@
       "description": "Format with prettier",
       "steps": [
         {
-          "exec": "prettier --write example/{**/,}*.ts src/{**/,}*.ts test/{**/,}*.ts .projenrc.ts CONTRIBUTING.md README.md"
+          "exec": "prettier --write example/**/*.ts src/**/*.ts test/**/*.ts .projenrc.ts CONTRIBUTING.md README.md"
         }
       ]
     },
@@ -210,9 +210,6 @@
       "steps": [
         {
           "spawn": "docgen"
-        },
-        {
-          "exec": "npx copyfiles -f src/layer.zip lib"
         }
       ]
     },

@@ -41,6 +41,7 @@
   "devDependencies": {
     "@pepperize/projen-awscdk-construct": "^0.0.148",
     "@types/jest": "^27",
+    "@types/mock-fs": "^4.13.1",
     "@types/node": "^12",
     "@types/prettier": "2.6.0",
     "@typescript-eslint/eslint-plugin": "^5",
@@ -59,6 +60,7 @@
     "jsii-diff": "^1.61.0",
     "jsii-docgen": "^7.0.43",
     "json-schema": "^0.4.0",
+    "mock-fs": "^5.1.2",
     "npm-check-updates": "^12",
     "prettier": "^2.7.1",
     "projen": "^0.58.21",

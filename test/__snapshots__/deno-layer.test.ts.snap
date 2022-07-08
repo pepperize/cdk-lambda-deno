@@ -16,7 +16,7 @@ Object {
           "S3Bucket": Object {
             "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
           },
-          "S3Key": "f8449f418ec9d05be251070898cc7989f8dc1ca8cc571cbcf51bdc46f719c375.zip",
+          "S3Key": "95c924c84f5d023be4edee540cb2cb401a49f115d01ed403b288f6cb412771df.zip",
         },
         "Description": "/bin/deno",
       },
