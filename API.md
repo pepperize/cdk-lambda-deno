@@ -1011,13 +1011,14 @@ The timeout configured for this lambda.
 ```typescript
 import { DenoLayer } from '@pepperize/cdk-lambda-deno'
 
-new DenoLayer(scope: Construct, id: string)
+new DenoLayer(scope: Construct, id: string, options: DenoLayerOptions)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.Initializer.parameter.options">options</a></code> | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayerOptions">DenoLayerOptions</a></code> | *No description.* |
 
 ---
 
@@ -1030,6 +1031,12 @@ new DenoLayer(scope: Construct, id: string)
 ##### `id`<sup>Required</sup> <a name="id" id="@pepperize/cdk-lambda-deno.DenoLayer.Initializer.parameter.id"></a>
 
 - *Type:* string
+
+---
+
+##### `options`<sup>Required</sup> <a name="options" id="@pepperize/cdk-lambda-deno.DenoLayer.Initializer.parameter.options"></a>
+
+- *Type:* <a href="#@pepperize/cdk-lambda-deno.DenoLayerOptions">DenoLayerOptions</a>
 
 ---
 
@@ -1215,12 +1222,18 @@ the properties of the imported layer.
 ```typescript
 import { DenoLayer } from '@pepperize/cdk-lambda-deno'
 
-DenoLayer.getOrCreate(scope: Construct)
+DenoLayer.getOrCreate(scope: Construct, options: DenoLayerOptions)
 ```
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@pepperize/cdk-lambda-deno.DenoLayer.getOrCreate.parameter.scope"></a>
 
 - *Type:* constructs.Construct
+
+---
+
+###### `options`<sup>Required</sup> <a name="options" id="@pepperize/cdk-lambda-deno.DenoLayer.getOrCreate.parameter.options"></a>
+
+- *Type:* <a href="#@pepperize/cdk-lambda-deno.DenoLayerOptions">DenoLayerOptions</a>
 
 ---
 
@@ -1357,6 +1370,7 @@ const denoFunctionProps: DenoFunctionProps = { ... }
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.vpcSubnets">vpcSubnets</a></code> | <code>aws-cdk-lib.aws_ec2.SubnetSelection</code> | Where to place the network interfaces within the VPC. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.code">code</a></code> | <code>aws-cdk-lib.aws_lambda.Code</code> | *No description.* |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.handler">handler</a></code> | <code>string</code> | *No description.* |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.version">version</a></code> | <code><a href="#@pepperize/cdk-lambda-deno.DenoVersion">DenoVersion</a></code> | *No description.* |
 
 ---
 
@@ -1906,5 +1920,116 @@ public readonly handler: string;
 
 ---
 
+##### `version`<sup>Optional</sup> <a name="version" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.version"></a>
+
+```typescript
+public readonly version: DenoVersion;
+```
+
+- *Type:* <a href="#@pepperize/cdk-lambda-deno.DenoVersion">DenoVersion</a>
+
+---
+
+### DenoLayerOptions <a name="DenoLayerOptions" id="@pepperize/cdk-lambda-deno.DenoLayerOptions"></a>
+
+#### Initializer <a name="Initializer" id="@pepperize/cdk-lambda-deno.DenoLayerOptions.Initializer"></a>
+
+```typescript
+import { DenoLayerOptions } from '@pepperize/cdk-lambda-deno'
+
+const denoLayerOptions: DenoLayerOptions = { ... }
+```
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayerOptions.property.version">version</a></code> | <code><a href="#@pepperize/cdk-lambda-deno.DenoVersion">DenoVersion</a></code> | *No description.* |
+
+---
+
+##### `version`<sup>Optional</sup> <a name="version" id="@pepperize/cdk-lambda-deno.DenoLayerOptions.property.version"></a>
+
+```typescript
+public readonly version: DenoVersion;
+```
+
+- *Type:* <a href="#@pepperize/cdk-lambda-deno.DenoVersion">DenoVersion</a>
+- *Default:* 1.23.3
+
+---
+
+## Classes <a name="Classes" id="Classes"></a>
+
+### DenoVersion <a name="DenoVersion" id="@pepperize/cdk-lambda-deno.DenoVersion"></a>
+
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoVersion.of">of</a></code> | Specify a custom version. |
+
+---
+
+##### `of` <a name="of" id="@pepperize/cdk-lambda-deno.DenoVersion.of"></a>
+
+```typescript
+import { DenoVersion } from '@pepperize/cdk-lambda-deno'
+
+DenoVersion.of(version: string)
+```
+
+Specify a custom version.
+
+Use this if the version you need is not available in one of the predefined versions.
+
+###### `version`<sup>Required</sup> <a name="version" id="@pepperize/cdk-lambda-deno.DenoVersion.of.parameter.version"></a>
+
+- *Type:* string
+
+The semantic version number without prefix 'v'.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoVersion.property.version">version</a></code> | <code>string</code> | The version string. |
+
+---
+
+##### `version`<sup>Required</sup> <a name="version" id="@pepperize/cdk-lambda-deno.DenoVersion.property.version"></a>
+
+```typescript
+public readonly version: string;
+```
+
+- *Type:* string
+
+The version string.
+
+---
+
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoVersion.property.V1_23_3">V1_23_3</a></code> | <code><a href="#@pepperize/cdk-lambda-deno.DenoVersion">DenoVersion</a></code> | 1.23.3. |
+
+---
+
+##### `V1_23_3`<sup>Required</sup> <a name="V1_23_3" id="@pepperize/cdk-lambda-deno.DenoVersion.property.V1_23_3"></a>
+
+```typescript
+public readonly V1_23_3: DenoVersion;
+```
+
+- *Type:* <a href="#@pepperize/cdk-lambda-deno.DenoVersion">DenoVersion</a>
+
+1.23.3.
+
+---
 
 

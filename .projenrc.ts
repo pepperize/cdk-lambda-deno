@@ -47,7 +47,6 @@ project.npmignore?.exclude("layer/");
 project.npmignore?.exclude("src/layer.zip");
 project.npmignore?.include("lib/layer.zip");
 
-project.preCompileTask.exec("./layer/build.sh");
 project.postCompileTask.exec("npx copyfiles -f src/layer.zip lib");
 
 project.formatTask.reset(

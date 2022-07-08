@@ -1,10 +1,10 @@
-FROM public.ecr.aws/lambda/provided:latest
+FROM public.ecr.aws/lambda/nodejs:latest
 
 #
 # version
 #
 
-ARG DENO_VERSION=v1.23.3
+ARG DENO_VERSION=1.23.3
 ARG DENO_TARGET=x86_64-unknown-linux-gnu
 
 USER root
@@ -16,14 +16,15 @@ WORKDIR /tmp
 #
 
 RUN yum update -y \
-    && yum install -y zip unzip wget
+    && yum install -y zip unzip wget git \
+    && npm install -g yarn
 
 #
 # deno
 #
 
 RUN mkdir -p /tmp/deno
-RUN cd /tmp/deno && curl -LO https://github.com/denoland/deno/releases/download/${DENO_VERSION}/deno-${DENO_TARGET}.zip
+RUN cd /tmp/deno && curl -LO https://github.com/denoland/deno/releases/download/v${DENO_VERSION}/deno-${DENO_TARGET}.zip
 RUN mkdir -p /opt/deno/bin && unzip -d /opt/deno/bin -o /tmp/deno/deno-${DENO_TARGET}.zip
 RUN chmod +x /opt/deno/bin/deno
 
@@ -32,13 +33,13 @@ RUN chmod +x /opt/deno/bin/deno
 #
 
 WORKDIR /opt/deno
-ADD node_modules/deno-lambda/runtime/* ./
+RUN yarn add -D https://github.com/hayd/deno-lambda.git#${DENO_VERSION}
 
 RUN mkdir -p .deno_dir/deps/https/deno.land/x/lambda/
-RUN cp mod.ts .deno_dir/deps/https/deno.land/x/lambda/mod.ts
-RUN cp types.d.ts .deno_dir/deps/https/deno.land/x/lambda/types.d.ts
+RUN cp node_modules/deno-lambda/runtime/mod.ts .deno_dir/deps/https/deno.land/x/lambda/mod.ts
+RUN cp node_modules/deno-lambda/runtime/types.d.ts .deno_dir/deps/https/deno.land/x/lambda/types.d.ts
 
-RUN DENO_DIR=/opt/deno/.deno_dir /opt/deno/bin/deno run /opt/deno/mod.ts
+RUN DENO_DIR=/opt/deno/.deno_dir /opt/deno/bin/deno run /opt/deno/node_modules/deno-lambda/runtime/mod.ts
 RUN cp -R .deno_dir/gen/file/$(pwd)/. .deno_dir/LAMBDA_TASK_ROOT && ls -alh .deno_dir
 
 #

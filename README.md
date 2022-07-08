@@ -81,7 +81,7 @@ new DenoFunction(stack, "Function", {
 ```typescript
 const stack = new Stack();
 
-const layer = new DenoLayer(stack, "Layer");
+const layer = new DenoLayer(stack, "Layer", { version: DenoVersion.of("1.23.3")});
 new lambda.Function(stack, "Function", {
   runtime: lambda.Runtime.PROVIDED_AL2,
   code: lambda.Code.fromAsset(path.join(__dirname, "../example/function")),

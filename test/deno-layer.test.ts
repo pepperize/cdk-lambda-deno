@@ -8,7 +8,7 @@ describe("DenoLayer", () => {
     const stack = new Stack();
 
     // When
-    DenoLayer.getOrCreate(stack);
+    DenoLayer.getOrCreate(stack, {});
 
     // Then
     const template = Template.fromStack(stack);
@@ -20,7 +20,7 @@ describe("DenoLayer", () => {
     const stack = new Stack();
 
     // When
-    new DenoLayer(stack, "Layer");
+    new DenoLayer(stack, "Layer", {});
 
     // Then
     Template.fromStack(stack).hasResourceProperties("AWS::Lambda::LayerVersion", {
