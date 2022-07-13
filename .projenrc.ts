@@ -9,7 +9,7 @@ const project = new AwsCdkConstructLibrary({
   name: "@pepperize/cdk-lambda-deno",
   description: "AWS CDK custom AWS Lambda runtime with Deno",
   keywords: ["aws", "cdk", "lambda", "layer", "runtime", "function", "deno", "javascript", "typescript"],
-  repositoryUrl: "https://github.com/patrick.florek/cdk-lambda-deno.git",
+  repositoryUrl: "https://github.com/pepperize/cdk-lambda-deno.git",
 
   projenrcTs: true,
 
