@@ -583,14 +583,6 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@jsii/check-node@1.64.0":
-  version "1.64.0"
-  resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.64.0.tgz#79e32f16ca5365d86fe78b484dbb2f4434e9ac6d"
-  integrity sha512-pPXv5kvMfSZ4Yzj35ATl5kOWRgwPQxA3sIChx3G9H55flsDwxHV0tQzT8KjyWe2E705buJGFf+to2DOycldupw==
-  dependencies:
-    chalk "^4.1.2"
-    semver "^7.3.7"
-
 "@jsii/check-node@1.67.0":
   version "1.67.0"
   resolved "https://registry.yarnpkg.com/@jsii/check-node/-/check-node-1.67.0.tgz#6ab7dd81b21b7fcff21508c182a9bc1d0a2a7402"
@@ -599,7 +591,7 @@
     chalk "^4.1.2"
     semver "^7.3.7"
 
-"@jsii/spec@1.67.0", "@jsii/spec@^1.64.0", "@jsii/spec@^1.67.0":
+"@jsii/spec@1.67.0", "@jsii/spec@^1.67.0":
   version "1.67.0"
   resolved "https://registry.yarnpkg.com/@jsii/spec/-/spec-1.67.0.tgz#d318739b4e8e82118e505721917e86b51fb1585b"
   integrity sha512-C/rGqdqQTJxgN/6tWQ6qcbQnKH76moZAGP+deT/TVx9JrrtrabrFhWfdqjtNYqpgNl1HKmHOSEO3Id5bBoFgvw==
@@ -3870,14 +3862,14 @@ jsesc@^2.5.1:
   integrity sha512-OYu7XEzjkCQ3C5Ps3QIZsQfNpqoJyZZA99wd9aWd05NCtC5pWOkShK2mkL6HXQR6/Cy2lbNdPlZBpuQHXE63gA==
 
 jsii-diff@^1.61.0:
-  version "1.64.0"
-  resolved "https://registry.yarnpkg.com/jsii-diff/-/jsii-diff-1.64.0.tgz#ed671ce1e6a9fc0ee8e61570595faebf5a525609"
-  integrity sha512-6aFEPGCKZ5jvb/BINBEB+TWblsoQohTyr0tsnrZ4gDQRV/tJCzJijz/A08TcdLKpzZRRrsbQCtEadysqSAgEAA==
+  version "1.67.0"
+  resolved "https://registry.yarnpkg.com/jsii-diff/-/jsii-diff-1.67.0.tgz#b6b516f8c5da9c4d6a50024fbc8fa61ef7b388d8"
+  integrity sha512-dB9GgYk+g5k7Kbusyun7bgCkbh6xwVomZC8jf6KfauIcWFPeacfe3ZtArUnJ3OvJqId7UJEvfiUQjllxn2KRNQ==
   dependencies:
-    "@jsii/check-node" "1.64.0"
-    "@jsii/spec" "^1.64.0"
+    "@jsii/check-node" "1.67.0"
+    "@jsii/spec" "^1.67.0"
     fs-extra "^10.1.0"
-    jsii-reflect "^1.64.0"
+    jsii-reflect "^1.67.0"
     log4js "^6.6.1"
     yargs "^16.2.0"
 
@@ -3896,7 +3888,7 @@ jsii-docgen@^7.0.43:
     semver "^7.3.7"
     yargs "^16.2.0"
 
-jsii-reflect@^1.64.0, jsii-reflect@^1.67.0:
+jsii-reflect@^1.67.0:
   version "1.67.0"
   resolved "https://registry.yarnpkg.com/jsii-reflect/-/jsii-reflect-1.67.0.tgz#49a59aa96e848bb5e7eb327e5f911b1241db76dd"
   integrity sha512-/4GCNkOqlo/MZZ6+Ud5iM2Y8TVcBJJMcKouGHkFEFbOrsSLY/yBa5cz1xLESz49VhucXLIzVzENtyi598yIXsg==
