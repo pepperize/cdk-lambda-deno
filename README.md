@@ -1,9 +1,10 @@
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
 [![GitHub](https://img.shields.io/github/license/pepperize/cdk-lambda-deno?style=flat-square)](https://github.com/pepperize/cdk-lambda-deno/blob/main/LICENSE)
 [![npm (scoped)](https://img.shields.io/npm/v/@pepperize/cdk-lambda-deno?style=flat-square)](https://www.npmjs.com/package/@pepperize/cdk-lambda-deno)
 [![PyPI](https://img.shields.io/pypi/v/pepperize.cdk-lambda-deno?style=flat-square)](https://pypi.org/project/pepperize.cdk-lambda-deno/)
 [![Nuget](https://img.shields.io/nuget/v/Pepperize.CDK.LambdaDeno?style=flat-square)](https://www.nuget.org/packages/Pepperize.CDK.LambdaDeno/)
 [![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/com.pepperize/cdk-lambda-deno?server=https%3A%2F%2Fs01.oss.sonatype.org%2F&style=flat-square)](https://s01.oss.sonatype.org/content/repositories/releases/com/pepperize/cdk-lambda-deno/)
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/pepperize/cdk-lambda-deno/release/main?label=release&style=flat-square)](https://github.com/pepperize/cdk-lambda-deno/actions/workflows/release.yml)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/pepperize/cdk-lambda-deno/release.yml?branch=main&label=release&style=flat-square)](https://github.com/pepperize/cdk-lambda-deno/actions/workflows/release.yml)
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/pepperize/cdk-lambda-deno?sort=semver&style=flat-square)](https://github.com/pepperize/cdk-lambda-deno/releases)
 [![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod&style=flat-square)](https://gitpod.io/#https://github.com/pepperize/cdk-lambda-deno)
 
