@@ -2200,9 +2200,9 @@ escodegen@^2.0.0:
     source-map "~0.6.1"
 
 eslint-config-prettier@^8.7.0:
-  version "8.7.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.7.0.tgz#f1cc58a8afebc50980bd53475451df146c13182d"
-  integrity sha512-HHVXLSlVUhMSmyW4ZzEuvjpwqamgmlfkutD53cYXLikh4pt/modINRcCIApJ84czDxM4GZInwUrromsDdTImTA==
+  version "8.8.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-prettier/-/eslint-config-prettier-8.8.0.tgz#bfda738d412adc917fd7b038857110efe98c9348"
+  integrity sha512-wLbQiFre3tdGgpDv67NQKnJuTlcUVYHas3k+DZCc2U2BadthoEY4B7hLPvAxaqdyOGCzuLfii2fqGph10va7oA==
 
 eslint-import-resolver-node@^0.3.7:
   version "0.3.7"
@@ -3750,9 +3750,9 @@ jsii-diff@^1.76.0:
     yargs "^16.2.0"
 
 jsii-docgen@^7.1.17:
-  version "7.1.31"
-  resolved "https://registry.yarnpkg.com/jsii-docgen/-/jsii-docgen-7.1.31.tgz#92ad0f7332b81b7d96d4feca816d3ee677a8f98a"
-  integrity sha512-RCUbLU6fpXQn90TTzJ+n2gcgjvSSO7pxraVXv/dRRdH+vXB9M4mKDuuUr8L1BiUD/FhhjaR2rv0A4Rc4NV25dg==
+  version "7.1.32"
+  resolved "https://registry.yarnpkg.com/jsii-docgen/-/jsii-docgen-7.1.32.tgz#a77da2b249ea5343c4da31c61432d6278d472fd4"
+  integrity sha512-RYEfk7oNtMyGATps+TexE+y6W6h/lGlllK7dNcfAYrxkL9j6mRYG+u5aiu85VYGdpj6b4hweVPsXtRiOJcAl1g==
   dependencies:
     "@jsii/spec" "^1.78.1"
     case "^1.6.3"
@@ -4503,9 +4503,9 @@ prettier-linter-helpers@^1.0.0:
     fast-diff "^1.1.2"
 
 prettier@^2.8.4:
-  version "2.8.5"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.5.tgz#3dd8ae1ebddc4f6aa419c9b64d8c8319a7e0d982"
-  integrity sha512-3gzuxrHbKUePRBB4ZeU08VNkUcqEHaUaouNt0m7LGP4Hti/NuB07C7PPTM/LkWqXoJYJn2McEo5+kxPNrtQkLQ==
+  version "2.8.6"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.8.6.tgz#5c174b29befd507f14b83e3c19f83fdc0e974b71"
+  integrity sha512-mtuzdiBbHwPEgl7NxWlqOkithPyp4VN93V7VeHVWBF+ad3I5avc0RVDT4oImXQy9H/AqxA2NSQH8pSxHW6FYbQ==
 
 pretty-format@^27.0.0, pretty-format@^27.5.1:
   version "27.5.1"
