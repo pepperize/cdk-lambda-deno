@@ -1,4 +1,4 @@
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://makeapullrequest.com)
+![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)
 [![GitHub](https://img.shields.io/github/license/pepperize/cdk-lambda-deno?style=flat-square)](https://github.com/pepperize/cdk-lambda-deno/blob/main/LICENSE)
 [![npm (scoped)](https://img.shields.io/npm/v/@pepperize/cdk-lambda-deno?style=flat-square)](https://www.npmjs.com/package/@pepperize/cdk-lambda-deno)
 [![PyPI](https://img.shields.io/pypi/v/pepperize.cdk-lambda-deno?style=flat-square)](https://pypi.org/project/pepperize.cdk-lambda-deno/)
