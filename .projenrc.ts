@@ -4,7 +4,8 @@ import { javascript } from "projen";
 const project = new AwsCdkConstructLibrary({
   author: "Patrick Florek",
   authorAddress: "patrick.florek@gmail.com",
-  cdkVersion: "2.29.1",
+  cdkVersion: "2.278.0",
+  jsiiVersion: "~6.0.0",
   defaultReleaseBranch: "main",
   name: "@pepperize/cdk-lambda-deno",
   description: "AWS CDK custom AWS Lambda runtime with Deno",
@@ -12,8 +13,14 @@ const project = new AwsCdkConstructLibrary({
   repositoryUrl: "https://github.com/pepperize/cdk-lambda-deno.git",
 
   projenrcTs: true,
+  minNodeVersion: "22.13.0",
+  workflowNodeVersion: "24.x",
+  jestOptions: {
+    jestVersion: "^30",
+  },
+  packageManager: javascript.NodePackageManager.YARN_CLASSIC,
 
-  devDeps: ["@pepperize/projen-awscdk-construct@~0.0.730", "@types/mock-fs", "mock-fs"],
+  devDeps: ["@pepperize/projen-awscdk-construct@~0.1.1", "@types/node@^22", "typescript@~6.0"],
 
   releaseToNpm: true,
   npmAccess: javascript.NpmAccess.PUBLIC,
@@ -26,7 +33,6 @@ const project = new AwsCdkConstructLibrary({
     module: "pepperize_cdk_lambda_deno",
   },
   publishToMaven: {
-    mavenEndpoint: "https://s01.oss.sonatype.org",
     mavenGroupId: "com.pepperize",
     mavenArtifactId: "cdk-lambda-deno",
     javaPackage: "com.pepperize.cdk.lambda_deno",
@@ -35,12 +41,6 @@ const project = new AwsCdkConstructLibrary({
   gitpod: true,
 });
 
-project.addDevDeps("ts-node@^10");
-project.addDevDeps("@types/jest@^27");
-project.addDevDeps("jest@^27");
-project.addDevDeps("ts-jest@^27");
-project.addDevDeps("@types/prettier@2.6.0");
-
 project.gitignore.exclude("src/layer.zip");
 project.npmignore?.exclude("example/");
 project.npmignore?.exclude("layer/");
@@ -48,7 +48,7 @@ project.npmignore?.exclude("src/layer.zip");
 project.npmignore?.include("lib/layer.zip");
 
 project.formatTask.reset(
-  "prettier --write example/**/*.ts src/**/*.ts test/**/*.ts .projenrc.ts CONTRIBUTING.md README.md"
+  "prettier --write example/**/*.ts src/**/*.ts test/**/*.ts .projenrc.ts CONTRIBUTING.md README.md",
 );
 
 project.gitpod?.addCustomTask({

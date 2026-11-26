@@ -1,8 +1,7 @@
+import * as fs from "fs";
 import * as path from "path";
 import { DockerImage, Stack } from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-import mockFs = require("mock-fs");
 import { DenoLayer } from "../src";
 
 describe("DenoLayer", () => {
@@ -14,7 +13,10 @@ describe("DenoLayer", () => {
       return {
         image: image,
         toJSON: jest.fn(),
-        cp: jest.fn(),
+        cp: jest.fn((imagePath: string, hostPath: string) => {
+          fs.writeFileSync(path.join(hostPath, path.basename(imagePath)), "");
+          return hostPath;
+        }),
         run: jest.fn(),
       };
     });
@@ -22,16 +24,6 @@ describe("DenoLayer", () => {
 
   afterAll(() => {
     dockerImageMock.mockRestore();
-  });
-
-  beforeEach(() => {
-    mockFs({
-      [path.join(__dirname, "../src/layer.zip")]: "",
-    });
-  });
-
-  afterEach(() => {
-    mockFs.restore();
   });
 
   it("should match snapshot", () => {
