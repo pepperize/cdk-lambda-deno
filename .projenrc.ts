@@ -48,7 +48,7 @@ project.npmignore?.exclude("src/layer.zip");
 project.npmignore?.include("lib/layer.zip");
 
 project.formatTask.reset(
-  "prettier --write example/**/*.ts src/**/*.ts test/**/*.ts .projenrc.ts CONTRIBUTING.md README.md"
+  "prettier --write example/**/*.ts src/**/*.ts test/**/*.ts .projenrc.ts CONTRIBUTING.md README.md",
 );
 
 project.gitpod?.addCustomTask({
