@@ -4,6 +4,8 @@
 
 ### DenoFunction <a name="DenoFunction" id="@pepperize/cdk-lambda-deno.DenoFunction"></a>
 
+- *Implements:* constructs.IConstruct, constructs.IDependable, aws-cdk-lib.IResource, aws-cdk-lib.interfaces.IEnvironmentAware, aws-cdk-lib.aws_lambda.IFunction, aws-cdk-lib.aws_ec2.IConnectable, aws-cdk-lib.aws_iam.IGrantable, aws-cdk-lib.interfaces.aws_lambda.IFunctionRef, aws-cdk-lib.aws_ec2.IClientVpnConnectionHandler
+
 #### Initializers <a name="Initializers" id="@pepperize/cdk-lambda-deno.DenoFunction.Initializer"></a>
 
 ```typescript
@@ -1222,6 +1224,8 @@ Uniquely identifies this class.
 ---
 
 ### DenoLayer <a name="DenoLayer" id="@pepperize/cdk-lambda-deno.DenoLayer"></a>
+
+- *Implements:* constructs.IConstruct, constructs.IDependable, aws-cdk-lib.IResource, aws-cdk-lib.interfaces.IEnvironmentAware, aws-cdk-lib.aws_lambda.ILayerVersion, aws-cdk-lib.interfaces.aws_lambda.ILayerVersionRef
 
 #### Initializers <a name="Initializers" id="@pepperize/cdk-lambda-deno.DenoLayer.Initializer"></a>
 
