@@ -43,6 +43,8 @@ new DenoFunction(scope: Construct, id: string, props: DenoFunctionProps)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Override the cross-stack reference strength for this resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.addEventSource">addEventSource</a></code> | Adds an event source to this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.addEventSourceMapping">addEventSourceMapping</a></code> | Adds an event source that maps to this AWS Lambda function. |
@@ -52,7 +54,10 @@ new DenoFunction(scope: Construct, id: string, props: DenoFunctionProps)
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.configureAsyncInvoke">configureAsyncInvoke</a></code> | Configures options for asynchronous invocation. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.considerWarningOnInvokeFunctionPermissions">considerWarningOnInvokeFunctionPermissions</a></code> | A warning will be added to functions under the following conditions: - permissions that include `lambda:InvokeFunction` are added to the unqualified function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.grantInvoke">grantInvoke</a></code> | Grant the given identity permissions to invoke this Lambda. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeCompositePrincipal">grantInvokeCompositePrincipal</a></code> | Grant multiple principals the ability to invoke this Lambda via CompositePrincipal. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeLatestVersion">grantInvokeLatestVersion</a></code> | Grant the given identity permissions to invoke the $LATEST version or unqualified version of this Lambda. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeUrl">grantInvokeUrl</a></code> | Grant the given identity permissions to invoke this Lambda Function URL. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeVersion">grantInvokeVersion</a></code> | Grant the given identity permissions to invoke the given version of this Lambda. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.metric">metric</a></code> | Return the given named metric for this Function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.metricDuration">metricDuration</a></code> | How long execution of this Lambda takes. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.metricErrors">metricErrors</a></code> | How many invocations of this Lambda fail. |
@@ -61,6 +66,7 @@ new DenoFunction(scope: Construct, id: string, props: DenoFunctionProps)
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.addAlias">addAlias</a></code> | Defines an alias for this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.addEnvironment">addEnvironment</a></code> | Adds an environment variable to this Lambda function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.addLayers">addLayers</a></code> | Adds one or more Lambda Layers to this Lambda function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.invalidateVersionBasedOn">invalidateVersionBasedOn</a></code> | Mix additional information into the hash of the Version object. |
 
 ---
 
@@ -71,6 +77,47 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@pepperize/cdk-lambda-deno.DenoFunction.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@pepperize/cdk-lambda-deno.DenoFunction.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+---
+
+##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@pepperize/cdk-lambda-deno.DenoFunction.applyCrossStackReferenceStrength"></a>
+
+```typescript
+public applyCrossStackReferenceStrength(strength: ReferenceStrength): void
+```
+
+Override the cross-stack reference strength for this resource.
+
+When set, any cross-stack reference to this resource will use the specified
+mechanism instead of the global default determined by the
+`@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+selectively weakening specific references to avoid the "deadly embrace" problem
+without changing the app-wide default.
+
+###### `strength`<sup>Required</sup> <a name="strength" id="@pepperize/cdk-lambda-deno.DenoFunction.applyCrossStackReferenceStrength.parameter.strength"></a>
+
+- *Type:* aws-cdk-lib.ReferenceStrength
+
+The reference strength to use for this resource.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@pepperize/cdk-lambda-deno.DenoFunction.applyRemovalPolicy"></a>
 
@@ -102,11 +149,11 @@ public addEventSource(source: IEventSource): void
 
 Adds an event source to this function.
 
-Event sources are implemented in the @aws-cdk/aws-lambda-event-sources module.
+Event sources are implemented in the aws-cdk-lib/aws-lambda-event-sources module.
 
 The following example adds an SQS Queue as an event source:
 ```
-import { SqsEventSource } from '@aws-cdk/aws-lambda-event-sources';
+import { SqsEventSource } from 'aws-cdk-lib/aws-lambda-event-sources';
 myFunction.addEventSource(new SqsEventSource(myQueue));
 ```
 
@@ -237,7 +284,41 @@ public grantInvoke(grantee: IGrantable): Grant
 
 Grant the given identity permissions to invoke this Lambda.
 
+[disable-awslint:no-grants]
+
 ###### `grantee`<sup>Required</sup> <a name="grantee" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvoke.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantInvokeCompositePrincipal` <a name="grantInvokeCompositePrincipal" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeCompositePrincipal"></a>
+
+```typescript
+public grantInvokeCompositePrincipal(compositePrincipal: CompositePrincipal): Grant[]
+```
+
+Grant multiple principals the ability to invoke this Lambda via CompositePrincipal.
+
+[disable-awslint:no-grants]
+
+###### `compositePrincipal`<sup>Required</sup> <a name="compositePrincipal" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeCompositePrincipal.parameter.compositePrincipal"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.CompositePrincipal
+
+---
+
+##### `grantInvokeLatestVersion` <a name="grantInvokeLatestVersion" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeLatestVersion"></a>
+
+```typescript
+public grantInvokeLatestVersion(grantee: IGrantable): Grant
+```
+
+Grant the given identity permissions to invoke the $LATEST version or unqualified version of this Lambda.
+
+[disable-awslint:no-grants]
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeLatestVersion.parameter.grantee"></a>
 
 - *Type:* aws-cdk-lib.aws_iam.IGrantable
 
@@ -251,9 +332,33 @@ public grantInvokeUrl(grantee: IGrantable): Grant
 
 Grant the given identity permissions to invoke this Lambda Function URL.
 
+[disable-awslint:no-grants]
+
 ###### `grantee`<sup>Required</sup> <a name="grantee" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeUrl.parameter.grantee"></a>
 
 - *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+##### `grantInvokeVersion` <a name="grantInvokeVersion" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeVersion"></a>
+
+```typescript
+public grantInvokeVersion(grantee: IGrantable, version: IVersion): Grant
+```
+
+Grant the given identity permissions to invoke the given version of this Lambda.
+
+[disable-awslint:no-grants]
+
+###### `grantee`<sup>Required</sup> <a name="grantee" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeVersion.parameter.grantee"></a>
+
+- *Type:* aws-cdk-lib.aws_iam.IGrantable
+
+---
+
+###### `version`<sup>Required</sup> <a name="version" id="@pepperize/cdk-lambda-deno.DenoFunction.grantInvokeVersion.parameter.version"></a>
+
+- *Type:* aws-cdk-lib.aws_lambda.IVersion
 
 ---
 
@@ -360,8 +465,8 @@ fn.addAlias('Live');
 // Is equivalent to
 
 new lambda.Alias(this, 'AliasLive', {
-   aliasName: 'Live',
-   version: fn.currentVersion,
+  aliasName: 'Live',
+  version: fn.currentVersion,
 });
 ```
 
@@ -431,11 +536,41 @@ the layers to be added.
 
 ---
 
+##### `invalidateVersionBasedOn` <a name="invalidateVersionBasedOn" id="@pepperize/cdk-lambda-deno.DenoFunction.invalidateVersionBasedOn"></a>
+
+```typescript
+public invalidateVersionBasedOn(x: string): void
+```
+
+Mix additional information into the hash of the Version object.
+
+The Lambda Function construct does its best to automatically create a new
+Version when anything about the Function changes (its code, its layers,
+any of the other properties).
+
+However, you can sometimes source information from places that the CDK cannot
+look into, like the deploy-time values of SSM parameters. In those cases,
+the CDK would not force the creation of a new Version object when it actually
+should.
+
+This method can be used to invalidate the current Version object. Pass in
+any string into this method, and make sure the string changes when you know
+a new Version needs to be created.
+
+This method may be called more than once.
+
+###### `x`<sup>Required</sup> <a name="x" id="@pepperize/cdk-lambda-deno.DenoFunction.invalidateVersionBasedOn.parameter.x"></a>
+
+- *Type:* string
+
+---
+
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.classifyVersionProperty">classifyVersionProperty</a></code> | Record whether specific properties in the `AWS::Lambda::Function` resource should also be associated to the Version resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.fromFunctionArn">fromFunctionArn</a></code> | Import a lambda function into the CDK using its ARN. |
@@ -451,7 +586,7 @@ the layers to be added.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@pepperize/cdk-lambda-deno.DenoFunction.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@pepperize/cdk-lambda-deno.DenoFunction.isConstruct"></a>
 
 ```typescript
 import { DenoFunction } from '@pepperize/cdk-lambda-deno'
@@ -461,11 +596,41 @@ DenoFunction.isConstruct(x: any)
 
 Checks if `x` is a construct.
 
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
 ###### `x`<sup>Required</sup> <a name="x" id="@pepperize/cdk-lambda-deno.DenoFunction.isConstruct.parameter.x"></a>
 
 - *Type:* any
 
 Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="@pepperize/cdk-lambda-deno.DenoFunction.isOwnedResource"></a>
+
+```typescript
+import { DenoFunction } from '@pepperize/cdk-lambda-deno'
+
+DenoFunction.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@pepperize/cdk-lambda-deno.DenoFunction.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
 
 ---
 
@@ -523,6 +688,9 @@ DenoFunction.fromFunctionArn(scope: Construct, id: string, functionArn: string)
 
 Import a lambda function into the CDK using its ARN.
 
+For `Function.addPermissions()` to work on this imported lambda, make sure that is
+in the same account and region as the stack you are importing it into.
+
 ###### `scope`<sup>Required</sup> <a name="scope" id="@pepperize/cdk-lambda-deno.DenoFunction.fromFunctionArn.parameter.scope"></a>
 
 - *Type:* constructs.Construct
@@ -550,6 +718,9 @@ DenoFunction.fromFunctionAttributes(scope: Construct, id: string, attrs: Functio
 ```
 
 Creates a Lambda function object which represents a function not defined within this stack.
+
+For `Function.addPermissions()` to work on this imported lambda, set the sameEnvironment property to true
+if this imported lambda is in the same account and region as the stack you are importing it into.
 
 ###### `scope`<sup>Required</sup> <a name="scope" id="@pepperize/cdk-lambda-deno.DenoFunction.fromFunctionAttributes.parameter.scope"></a>
 
@@ -726,18 +897,20 @@ Metric for the number of unreserved concurrent executions across all Lambdas.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The architecture of this Lambda Function (this is an optional attribute and defaults to X86_64). |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.connections">connections</a></code> | <code>aws-cdk-lib.aws_ec2.Connections</code> | Access the Connections object. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.functionArn">functionArn</a></code> | <code>string</code> | ARN of this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.functionName">functionName</a></code> | <code>string</code> | Name of this function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.functionRef">functionRef</a></code> | <code>aws-cdk-lib.interfaces.aws_lambda.FunctionReference</code> | A reference to a Function resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.grantPrincipal">grantPrincipal</a></code> | <code>aws-cdk-lib.aws_iam.IPrincipal</code> | The principal this Lambda Function is running as. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.isBoundToVpc">isBoundToVpc</a></code> | <code>boolean</code> | Whether or not this Lambda function was bound to a VPC. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.latestVersion">latestVersion</a></code> | <code>aws-cdk-lib.aws_lambda.IVersion</code> | The `$LATEST` version of this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.permissionsNode">permissionsNode</a></code> | <code>constructs.Node</code> | The construct node where permissions are attached. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.resourceArnsForGrantInvoke">resourceArnsForGrantInvoke</a></code> | <code>string[]</code> | The ARN(s) to put into the resource field of the generated IAM policy for grantInvoke(). |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Execution role associated with this function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.tenancyConfig">tenancyConfig</a></code> | <code>aws-cdk-lib.aws_lambda.TenancyConfig</code> | The tenancy configuration for this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.currentVersion">currentVersion</a></code> | <code>aws-cdk-lib.aws_lambda.Version</code> | Returns a `lambda.Version` which represents the current version of this Lambda function. A new version will be created every time the function's configuration changes. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.aws_logs.ILogGroup</code> | The LogGroup where the Lambda function's logs are made available. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.runtime">runtime</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime</code> | The runtime configured for this lambda. |
@@ -765,16 +938,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -840,6 +1014,18 @@ Name of this function.
 
 ---
 
+##### `functionRef`<sup>Required</sup> <a name="functionRef" id="@pepperize/cdk-lambda-deno.DenoFunction.property.functionRef"></a>
+
+```typescript
+public readonly functionRef: FunctionReference;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_lambda.FunctionReference
+
+A reference to a Function resource.
+
+---
+
 ##### `grantPrincipal`<sup>Required</sup> <a name="grantPrincipal" id="@pepperize/cdk-lambda-deno.DenoFunction.property.grantPrincipal"></a>
 
 ```typescript
@@ -862,7 +1048,7 @@ public readonly isBoundToVpc: boolean;
 
 Whether or not this Lambda function was bound to a VPC.
 
-If this is is `false`, trying to access the `connections` object will fail.
+If this is `false`, trying to access the `connections` object will fail.
 
 ---
 
@@ -918,6 +1104,18 @@ public readonly role: IRole;
 - *Type:* aws-cdk-lib.aws_iam.IRole
 
 Execution role associated with this function.
+
+---
+
+##### `tenancyConfig`<sup>Optional</sup> <a name="tenancyConfig" id="@pepperize/cdk-lambda-deno.DenoFunction.property.tenancyConfig"></a>
+
+```typescript
+public readonly tenancyConfig: TenancyConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.TenancyConfig
+
+The tenancy configuration for this function.
 
 ---
 
@@ -1003,6 +1201,25 @@ The timeout configured for this lambda.
 
 ---
 
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunction.property.PROPERTY_INJECTION_ID">PROPERTY_INJECTION_ID</a></code> | <code>string</code> | Uniquely identifies this class. |
+
+---
+
+##### `PROPERTY_INJECTION_ID`<sup>Required</sup> <a name="PROPERTY_INJECTION_ID" id="@pepperize/cdk-lambda-deno.DenoFunction.property.PROPERTY_INJECTION_ID"></a>
+
+```typescript
+public readonly PROPERTY_INJECTION_ID: string;
+```
+
+- *Type:* string
+
+Uniquely identifies this class.
+
+---
 
 ### DenoLayer <a name="DenoLayer" id="@pepperize/cdk-lambda-deno.DenoLayer"></a>
 
@@ -1045,6 +1262,8 @@ new DenoLayer(scope: Construct, id: string, options: DenoLayerOptions)
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.with">with</a></code> | Applies one or more mixins to this construct. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.applyCrossStackReferenceStrength">applyCrossStackReferenceStrength</a></code> | Override the cross-stack reference strength for this resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.applyRemovalPolicy">applyRemovalPolicy</a></code> | Apply the given removal policy to this resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.addPermission">addPermission</a></code> | Add permission for this layer version to specific entities. |
 
@@ -1057,6 +1276,47 @@ public toString(): string
 ```
 
 Returns a string representation of this construct.
+
+##### `with` <a name="with" id="@pepperize/cdk-lambda-deno.DenoLayer.with"></a>
+
+```typescript
+public with(mixins: ...IMixin[]): IConstruct
+```
+
+Applies one or more mixins to this construct.
+
+Mixins are applied in order. The list of constructs is captured at the
+start of the call, so constructs added by a mixin will not be visited.
+Use multiple `with()` calls if subsequent mixins should apply to added
+constructs.
+
+###### `mixins`<sup>Required</sup> <a name="mixins" id="@pepperize/cdk-lambda-deno.DenoLayer.with.parameter.mixins"></a>
+
+- *Type:* ...constructs.IMixin[]
+
+---
+
+##### `applyCrossStackReferenceStrength` <a name="applyCrossStackReferenceStrength" id="@pepperize/cdk-lambda-deno.DenoLayer.applyCrossStackReferenceStrength"></a>
+
+```typescript
+public applyCrossStackReferenceStrength(strength: ReferenceStrength): void
+```
+
+Override the cross-stack reference strength for this resource.
+
+When set, any cross-stack reference to this resource will use the specified
+mechanism instead of the global default determined by the
+`@aws-cdk/core:defaultCrossStackReferences` context key. This is useful for
+selectively weakening specific references to avoid the "deadly embrace" problem
+without changing the app-wide default.
+
+###### `strength`<sup>Required</sup> <a name="strength" id="@pepperize/cdk-lambda-deno.DenoLayer.applyCrossStackReferenceStrength.parameter.strength"></a>
+
+- *Type:* aws-cdk-lib.ReferenceStrength
+
+The reference strength to use for this resource.
+
+---
 
 ##### `applyRemovalPolicy` <a name="applyRemovalPolicy" id="@pepperize/cdk-lambda-deno.DenoLayer.applyRemovalPolicy"></a>
 
@@ -1112,6 +1372,7 @@ permission on the layer version.
 | **Name** | **Description** |
 | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.isOwnedResource">isOwnedResource</a></code> | Returns true if the construct was created by CDK, and false otherwise. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.isResource">isResource</a></code> | Check whether the given construct is a Resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.fromLayerVersionArn">fromLayerVersionArn</a></code> | Imports a layer version by ARN. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.fromLayerVersionAttributes">fromLayerVersionAttributes</a></code> | Imports a Layer that has been defined externally. |
@@ -1119,7 +1380,7 @@ permission on the layer version.
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="@pepperize/cdk-lambda-deno.DenoLayer.isConstruct"></a>
+##### `isConstruct` <a name="isConstruct" id="@pepperize/cdk-lambda-deno.DenoLayer.isConstruct"></a>
 
 ```typescript
 import { DenoLayer } from '@pepperize/cdk-lambda-deno'
@@ -1129,11 +1390,41 @@ DenoLayer.isConstruct(x: any)
 
 Checks if `x` is a construct.
 
+Use this method instead of `instanceof` to properly detect `Construct`
+instances, even when the construct library is symlinked.
+
+Explanation: in JavaScript, multiple copies of the `constructs` library on
+disk are seen as independent, completely different libraries. As a
+consequence, the class `Construct` in each copy of the `constructs` library
+is seen as a different class, and an instance of one class will not test as
+`instanceof` the other class. `npm install` will not create installations
+like this, but users may manually symlink construct libraries together or
+use a monorepo tool: in those cases, multiple copies of the `constructs`
+library can be accidentally installed, and `instanceof` will behave
+unpredictably. It is safest to avoid using `instanceof`, and using
+this type-testing method instead.
+
 ###### `x`<sup>Required</sup> <a name="x" id="@pepperize/cdk-lambda-deno.DenoLayer.isConstruct.parameter.x"></a>
 
 - *Type:* any
 
 Any object.
+
+---
+
+##### `isOwnedResource` <a name="isOwnedResource" id="@pepperize/cdk-lambda-deno.DenoLayer.isOwnedResource"></a>
+
+```typescript
+import { DenoLayer } from '@pepperize/cdk-lambda-deno'
+
+DenoLayer.isOwnedResource(construct: IConstruct)
+```
+
+Returns true if the construct was created by CDK, and false otherwise.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="@pepperize/cdk-lambda-deno.DenoLayer.isOwnedResource.parameter.construct"></a>
+
+- *Type:* constructs.IConstruct
 
 ---
 
@@ -1242,9 +1533,10 @@ DenoLayer.getOrCreate(scope: Construct, options: DenoLayerOptions)
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.env">env</a></code> | <code>aws-cdk-lib.ResourceEnvironment</code> | The environment this resource belongs to. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.env">env</a></code> | <code>aws-cdk-lib.interfaces.ResourceEnvironment</code> | The environment this resource belongs to. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.stack">stack</a></code> | <code>aws-cdk-lib.Stack</code> | The stack in which this resource is defined. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.layerVersionArn">layerVersionArn</a></code> | <code>string</code> | The ARN of the Lambda Layer version that this Layer defines. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.layerVersionRef">layerVersionRef</a></code> | <code>aws-cdk-lib.interfaces.aws_lambda.LayerVersionReference</code> | A reference to a LayerVersion resource. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.compatibleRuntimes">compatibleRuntimes</a></code> | <code>aws-cdk-lib.aws_lambda.Runtime[]</code> | The runtimes compatible with this Layer. |
 
 ---
@@ -1267,16 +1559,17 @@ The tree node.
 public readonly env: ResourceEnvironment;
 ```
 
-- *Type:* aws-cdk-lib.ResourceEnvironment
+- *Type:* aws-cdk-lib.interfaces.ResourceEnvironment
 
 The environment this resource belongs to.
 
-For resources that are created and managed by the CDK
-(generally, those created by creating new class instances like Role, Bucket, etc.),
-this is always the same as the environment of the stack they belong to;
-however, for imported resources
-(those obtained from static methods like fromRoleArn, fromBucketName, etc.),
-that might be different than the stack they were imported into.
+For resources that are created and managed in a Stack (those created by
+creating new class instances like `new Role()`, `new Bucket()`, etc.), this
+is always the same as the environment of the stack they belong to.
+
+For referenced resources (those obtained from referencing methods like
+`Role.fromRoleArn()`, `Bucket.fromBucketName()`, etc.), they might be
+different than the stack they were imported into.
 
 ---
 
@@ -1304,6 +1597,18 @@ The ARN of the Lambda Layer version that this Layer defines.
 
 ---
 
+##### `layerVersionRef`<sup>Required</sup> <a name="layerVersionRef" id="@pepperize/cdk-lambda-deno.DenoLayer.property.layerVersionRef"></a>
+
+```typescript
+public readonly layerVersionRef: LayerVersionReference;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_lambda.LayerVersionReference
+
+A reference to a LayerVersion resource.
+
+---
+
 ##### `compatibleRuntimes`<sup>Optional</sup> <a name="compatibleRuntimes" id="@pepperize/cdk-lambda-deno.DenoLayer.property.compatibleRuntimes"></a>
 
 ```typescript
@@ -1316,6 +1621,25 @@ The runtimes compatible with this Layer.
 
 ---
 
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoLayer.property.PROPERTY_INJECTION_ID">PROPERTY_INJECTION_ID</a></code> | <code>string</code> | Uniquely identifies this class. |
+
+---
+
+##### `PROPERTY_INJECTION_ID`<sup>Required</sup> <a name="PROPERTY_INJECTION_ID" id="@pepperize/cdk-lambda-deno.DenoLayer.property.PROPERTY_INJECTION_ID"></a>
+
+```typescript
+public readonly PROPERTY_INJECTION_ID: string;
+```
+
+- *Type:* string
+
+Uniquely identifies this class.
+
+---
 
 ## Structs <a name="Structs" id="Structs"></a>
 
@@ -1337,33 +1661,51 @@ const denoFunctionProps: DenoFunctionProps = { ... }
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.onFailure">onFailure</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for failed invocations. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.onSuccess">onSuccess</a></code> | <code>aws-cdk-lib.aws_lambda.IDestination</code> | The destination for successful invocations. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.retryAttempts">retryAttempts</a></code> | <code>number</code> | The maximum number of times to retry when the function returns an error. |
-| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.acceleratorConfig">acceleratorConfig</a></code> | <code>aws-cdk-lib.aws_lambda.AcceleratorConfig</code> | Accelerator configuration for the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.adotInstrumentation">adotInstrumentation</a></code> | <code>aws-cdk-lib.aws_lambda.AdotInstrumentationConfig</code> | Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.allowAllIpv6Outbound">allowAllIpv6Outbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all ipv6 network traffic. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.allowAllOutbound">allowAllOutbound</a></code> | <code>boolean</code> | Whether to allow the Lambda to send all network traffic (except ipv6). |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.allowPublicSubnet">allowPublicSubnet</a></code> | <code>boolean</code> | Lambda Functions in a public subnet can NOT access the internet. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.applicationLogLevel">applicationLogLevel</a></code> | <code>string</code> | Sets the application log level for the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.applicationLogLevelV2">applicationLogLevelV2</a></code> | <code>aws-cdk-lib.aws_lambda.ApplicationLogLevel</code> | Sets the application log level for the function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.architecture">architecture</a></code> | <code>aws-cdk-lib.aws_lambda.Architecture</code> | The system architectures compatible with this lambda function. |
-| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.codeSigningConfig">codeSigningConfig</a></code> | <code>aws-cdk-lib.aws_lambda.ICodeSigningConfig</code> | Code signing config associated with this function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.codeSigningConfig">codeSigningConfig</a></code> | <code>aws-cdk-lib.interfaces.aws_lambda.ICodeSigningConfigRef</code> | Code signing config associated with this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.currentVersionOptions">currentVersionOptions</a></code> | <code>aws-cdk-lib.aws_lambda.VersionOptions</code> | Options for the `lambda.Version` resource automatically created by the `fn.currentVersion` method. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.deadLetterQueue">deadLetterQueue</a></code> | <code>aws-cdk-lib.aws_sqs.IQueue</code> | The SQS queue to use if DLQ is enabled. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.deadLetterQueueEnabled">deadLetterQueueEnabled</a></code> | <code>boolean</code> | Enabled DLQ. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.deadLetterTopic">deadLetterTopic</a></code> | <code>aws-cdk-lib.aws_sns.ITopic</code> | The SNS topic to use as a DLQ. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.description">description</a></code> | <code>string</code> | A description of the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.durableConfig">durableConfig</a></code> | <code>aws-cdk-lib.aws_lambda.DurableConfig</code> | The durable configuration for the function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.environment">environment</a></code> | <code>{[ key: string ]: string}</code> | Key-value pairs that Lambda caches and makes available for your Lambda functions. |
-| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.environmentEncryption">environmentEncryption</a></code> | <code>aws-cdk-lib.aws_kms.IKey</code> | The AWS KMS key that's used to encrypt your function's environment variables. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.environmentEncryption">environmentEncryption</a></code> | <code>aws-cdk-lib.interfaces.aws_kms.IKeyRef</code> | The AWS KMS key that's used to encrypt your function's environment variables. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.ephemeralStorageSize">ephemeralStorageSize</a></code> | <code>aws-cdk-lib.Size</code> | The size of the function’s /tmp directory in MiB. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.events">events</a></code> | <code>aws-cdk-lib.aws_lambda.IEventSource[]</code> | Event sources for this function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.filesystem">filesystem</a></code> | <code>aws-cdk-lib.aws_lambda.FileSystem</code> | The filesystem configuration for the lambda function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.functionName">functionName</a></code> | <code>string</code> | A name for the function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.initialPolicy">initialPolicy</a></code> | <code>aws-cdk-lib.aws_iam.PolicyStatement[]</code> | Initial policy statements to add to the created Lambda Role. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.insightsVersion">insightsVersion</a></code> | <code>aws-cdk-lib.aws_lambda.LambdaInsightsVersion</code> | Specify the version of CloudWatch Lambda insights to use for monitoring. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.ipv6AllowedForDualStack">ipv6AllowedForDualStack</a></code> | <code>boolean</code> | Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | A list of layers to add to the function's execution environment. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logFormat">logFormat</a></code> | <code>string</code> | Sets the logFormat for the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.loggingFormat">loggingFormat</a></code> | <code>aws-cdk-lib.aws_lambda.LoggingFormat</code> | Sets the loggingFormat for the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logGroup">logGroup</a></code> | <code>aws-cdk-lib.interfaces.aws_logs.ILogGroupRef</code> | The log group the function sends logs to. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRemovalPolicy">logRemovalPolicy</a></code> | <code>aws-cdk-lib.RemovalPolicy</code> | Determine the removal policy of the log group that is auto-created by this construct. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRetention">logRetention</a></code> | <code>aws-cdk-lib.aws_logs.RetentionDays</code> | The number of days log events are kept in CloudWatch Logs. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRetentionRetryOptions">logRetentionRetryOptions</a></code> | <code>aws-cdk-lib.aws_lambda.LogRetentionRetryOptions</code> | When log retention is specified, a custom resource attempts to create the CloudWatch log group. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRetentionRole">logRetentionRole</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | The IAM role for the Lambda function associated with the custom resource that sets the retention policy. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.memorySize">memorySize</a></code> | <code>number</code> | The amount of memory, in MB, that is allocated to your Lambda function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.paramsAndSecrets">paramsAndSecrets</a></code> | <code>aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion</code> | Specify the configuration of Parameters and Secrets Extension. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.profiling">profiling</a></code> | <code>boolean</code> | Enable profiling. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.profilingGroup">profilingGroup</a></code> | <code>aws-cdk-lib.aws_codeguruprofiler.IProfilingGroup</code> | Profiling Group. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.recursiveLoop">recursiveLoop</a></code> | <code>aws-cdk-lib.aws_lambda.RecursiveLoop</code> | Sets the Recursive Loop Protection for Lambda Function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.reservedConcurrentExecutions">reservedConcurrentExecutions</a></code> | <code>number</code> | The maximum of concurrent executions you want to reserve for the function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.role">role</a></code> | <code>aws-cdk-lib.aws_iam.IRole</code> | Lambda execution role. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.runtimeManagementMode">runtimeManagementMode</a></code> | <code>aws-cdk-lib.aws_lambda.RuntimeManagementMode</code> | Sets the runtime management configuration for a function's version. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.securityGroups">securityGroups</a></code> | <code>aws-cdk-lib.aws_ec2.ISecurityGroup[]</code> | The list of security groups to associate with the Lambda's network interfaces. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.snapStart">snapStart</a></code> | <code>aws-cdk-lib.aws_lambda.SnapStartConf</code> | Enable SnapStart for Lambda Function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.systemLogLevel">systemLogLevel</a></code> | <code>string</code> | Sets the system log level for the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.systemLogLevelV2">systemLogLevelV2</a></code> | <code>aws-cdk-lib.aws_lambda.SystemLogLevel</code> | Sets the system log level for the function. |
+| <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.tenancyConfig">tenancyConfig</a></code> | <code>aws-cdk-lib.aws_lambda.TenancyConfig</code> | The tenancy configuration for the function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | The function execution time (in seconds) after which Lambda terminates the function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.tracing">tracing</a></code> | <code>aws-cdk-lib.aws_lambda.Tracing</code> | Enable AWS X-Ray Tracing for Lambda Function. |
 | <code><a href="#@pepperize/cdk-lambda-deno.DenoFunctionProps.property.vpc">vpc</a></code> | <code>aws-cdk-lib.aws_ec2.IVpc</code> | VPC network to place Lambda network interfaces. |
@@ -1432,6 +1774,62 @@ Maximum: 2
 
 ---
 
+##### `acceleratorConfig`<sup>Optional</sup> <a name="acceleratorConfig" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.acceleratorConfig"></a>
+
+```typescript
+public readonly acceleratorConfig: AcceleratorConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.AcceleratorConfig
+- *Default:* No accelerator configuration
+
+Accelerator configuration for the function.
+
+Configures the accelerator resource settings for the execution environment, including
+the amount of accelerator memory to allocate. The function must be attached to a
+capacity provider (`capacityProvider.addFunction(fn)`), use a container image
+(`Runtime.FROM_IMAGE`) on x86_64, and set `memorySize` to at least 2048 MiB.
+When set, `ephemeralStorageSize` may be up to 32 GiB.
+
+> [https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-lambda-function-acceleratorconfig.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/aws-properties-lambda-function-acceleratorconfig.html)
+
+---
+
+##### `adotInstrumentation`<sup>Optional</sup> <a name="adotInstrumentation" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.adotInstrumentation"></a>
+
+```typescript
+public readonly adotInstrumentation: AdotInstrumentationConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.AdotInstrumentationConfig
+- *Default:* No ADOT instrumentation
+
+Specify the configuration of AWS Distro for OpenTelemetry (ADOT) instrumentation.
+
+> [https://aws-otel.github.io/docs/getting-started/lambda](https://aws-otel.github.io/docs/getting-started/lambda)
+
+---
+
+##### `allowAllIpv6Outbound`<sup>Optional</sup> <a name="allowAllIpv6Outbound" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.allowAllIpv6Outbound"></a>
+
+```typescript
+public readonly allowAllIpv6Outbound: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Whether to allow the Lambda to send all ipv6 network traffic.
+
+If set to true, there will only be a single egress rule which allows all
+outbound ipv6 traffic. If set to false, you must individually add traffic rules to allow the
+Lambda to connect to network targets using ipv6.
+
+Do not specify this property if the `securityGroups` or `securityGroup` property is set.
+Instead, configure `allowAllIpv6Outbound` directly on the security group.
+
+---
+
 ##### `allowAllOutbound`<sup>Optional</sup> <a name="allowAllOutbound" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.allowAllOutbound"></a>
 
 ```typescript
@@ -1441,10 +1839,13 @@ public readonly allowAllOutbound: boolean;
 - *Type:* boolean
 - *Default:* true
 
-Whether to allow the Lambda to send all network traffic.
+Whether to allow the Lambda to send all network traffic (except ipv6).
 
 If set to false, you must individually add traffic rules to allow the
 Lambda to connect to network targets.
+
+Do not specify this property if the `securityGroups` or `securityGroup` property is set.
+Instead, configure `allowAllOutbound` directly on the security group.
 
 ---
 
@@ -1465,6 +1866,34 @@ Use this property to acknowledge this limitation and still place the function in
 
 ---
 
+##### ~~`applicationLogLevel`~~<sup>Optional</sup> <a name="applicationLogLevel" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.applicationLogLevel"></a>
+
+- *Deprecated:* Use `applicationLogLevelV2` as a property instead.
+
+```typescript
+public readonly applicationLogLevel: string;
+```
+
+- *Type:* string
+- *Default:* "INFO"
+
+Sets the application log level for the function.
+
+---
+
+##### `applicationLogLevelV2`<sup>Optional</sup> <a name="applicationLogLevelV2" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.applicationLogLevelV2"></a>
+
+```typescript
+public readonly applicationLogLevelV2: ApplicationLogLevel;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ApplicationLogLevel
+- *Default:* ApplicationLogLevel.INFO
+
+Sets the application log level for the function.
+
+---
+
 ##### `architecture`<sup>Optional</sup> <a name="architecture" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.architecture"></a>
 
 ```typescript
@@ -1481,10 +1910,10 @@ The system architectures compatible with this lambda function.
 ##### `codeSigningConfig`<sup>Optional</sup> <a name="codeSigningConfig" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.codeSigningConfig"></a>
 
 ```typescript
-public readonly codeSigningConfig: ICodeSigningConfig;
+public readonly codeSigningConfig: ICodeSigningConfigRef;
 ```
 
-- *Type:* aws-cdk-lib.aws_lambda.ICodeSigningConfig
+- *Type:* aws-cdk-lib.interfaces.aws_lambda.ICodeSigningConfigRef
 - *Default:* Not Sign the Code
 
 Code signing config associated with this function.
@@ -1564,6 +1993,22 @@ A description of the function.
 
 ---
 
+##### `durableConfig`<sup>Optional</sup> <a name="durableConfig" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.durableConfig"></a>
+
+```typescript
+public readonly durableConfig: DurableConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.DurableConfig
+- *Default:* No durable configuration
+
+The durable configuration for the function.
+
+If durability is added to an existing function, a resource replacement will be triggered.
+See the 'durableConfig' section in the module README for more details.
+
+---
+
 ##### `environment`<sup>Optional</sup> <a name="environment" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.environment"></a>
 
 ```typescript
@@ -1584,10 +2029,10 @@ Lambda function source code.
 ##### `environmentEncryption`<sup>Optional</sup> <a name="environmentEncryption" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.environmentEncryption"></a>
 
 ```typescript
-public readonly environmentEncryption: IKey;
+public readonly environmentEncryption: IKeyRef;
 ```
 
-- *Type:* aws-cdk-lib.aws_kms.IKey
+- *Type:* aws-cdk-lib.interfaces.aws_kms.IKeyRef
 - *Default:* AWS Lambda creates and uses an AWS managed customer master key (CMK).
 
 The AWS KMS key that's used to encrypt your function's environment variables.
@@ -1678,6 +2123,21 @@ Specify the version of CloudWatch Lambda insights to use for monitoring.
 
 ---
 
+##### `ipv6AllowedForDualStack`<sup>Optional</sup> <a name="ipv6AllowedForDualStack" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.ipv6AllowedForDualStack"></a>
+
+```typescript
+public readonly ipv6AllowedForDualStack: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Allows outbound IPv6 traffic on VPC functions that are connected to dual-stack subnets.
+
+Only used if 'vpc' is supplied.
+
+---
+
 ##### `layers`<sup>Optional</sup> <a name="layers" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.layers"></a>
 
 ```typescript
@@ -1695,7 +2155,78 @@ that can be used by multiple functions.
 
 ---
 
-##### `logRetention`<sup>Optional</sup> <a name="logRetention" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRetention"></a>
+##### ~~`logFormat`~~<sup>Optional</sup> <a name="logFormat" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logFormat"></a>
+
+- *Deprecated:* Use `loggingFormat` as a property instead.
+
+```typescript
+public readonly logFormat: string;
+```
+
+- *Type:* string
+- *Default:* "Text"
+
+Sets the logFormat for the function.
+
+---
+
+##### `loggingFormat`<sup>Optional</sup> <a name="loggingFormat" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.loggingFormat"></a>
+
+```typescript
+public readonly loggingFormat: LoggingFormat;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.LoggingFormat
+- *Default:* LoggingFormat.TEXT
+
+Sets the loggingFormat for the function.
+
+---
+
+##### `logGroup`<sup>Optional</sup> <a name="logGroup" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logGroup"></a>
+
+```typescript
+public readonly logGroup: ILogGroupRef;
+```
+
+- *Type:* aws-cdk-lib.interfaces.aws_logs.ILogGroupRef
+- *Default:* `/aws/lambda/${this.functionName}` - default log group created by Lambda
+
+The log group the function sends logs to.
+
+By default, Lambda functions send logs to an automatically created default log group named /aws/lambda/\<function name\>.
+However you cannot change the properties of this auto-created log group using the AWS CDK, e.g. you cannot set a different log retention.
+
+Use the `logGroup` property to create a fully customizable LogGroup ahead of time, and instruct the Lambda function to send logs to it.
+
+Providing a user-controlled log group was rolled out to commercial regions on 2023-11-16.
+If you are deploying to another type of region, please check regional availability first.
+
+---
+
+##### ~~`logRemovalPolicy`~~<sup>Optional</sup> <a name="logRemovalPolicy" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRemovalPolicy"></a>
+
+- *Deprecated:* use `logGroup` instead
+
+```typescript
+public readonly logRemovalPolicy: RemovalPolicy;
+```
+
+- *Type:* aws-cdk-lib.RemovalPolicy
+- *Default:* RemovalPolicy.Retain
+
+Determine the removal policy of the log group that is auto-created by this construct.
+
+Normally you want to retain the log group so you can diagnose issues
+from logs even after a deployment that no longer includes the log group.
+In that case, use the normal date-based retention policy to age out your
+logs.
+
+---
+
+##### ~~`logRetention`~~<sup>Optional</sup> <a name="logRetention" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRetention"></a>
+
+- *Deprecated:* use `logGroup` instead
 
 ```typescript
 public readonly logRetention: RetentionDays;
@@ -1709,6 +2240,20 @@ The number of days log events are kept in CloudWatch Logs.
 When updating
 this property, unsetting it doesn't remove the log retention policy. To
 remove the retention policy, set the value to `INFINITE`.
+
+This is a legacy API and we strongly recommend you move away from it if you can.
+Instead create a fully customizable log group with `logs.LogGroup` and use the `logGroup` property
+to instruct the Lambda function to send logs to it.
+Migrating from `logRetention` to `logGroup` will cause the name of the log group to change.
+Users and code and referencing the name verbatim will have to adjust.
+
+In AWS CDK code, you can access the log group name directly from the LogGroup construct:
+```ts
+import * as logs from 'aws-cdk-lib/aws-logs';
+
+declare const myLogGroup: logs.LogGroup;
+myLogGroup.logGroupName;
+```
 
 ---
 
@@ -1725,6 +2270,9 @@ When log retention is specified, a custom resource attempts to create the CloudW
 
 These options control the retry policy when interacting with CloudWatch APIs.
 
+This is a legacy API and we strongly recommend you migrate to `logGroup` if you can.
+`logGroup` allows you to create a fully customizable log group and instruct the Lambda function to send logs to it.
+
 ---
 
 ##### `logRetentionRole`<sup>Optional</sup> <a name="logRetentionRole" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.logRetentionRole"></a>
@@ -1737,6 +2285,9 @@ public readonly logRetentionRole: IRole;
 - *Default:* A new role is created.
 
 The IAM role for the Lambda function associated with the custom resource that sets the retention policy.
+
+This is a legacy API and we strongly recommend you migrate to `logGroup` if you can.
+`logGroup` allows you to create a fully customizable log group and instruct the Lambda function to send logs to it.
 
 ---
 
@@ -1754,6 +2305,21 @@ The amount of memory, in MB, that is allocated to your Lambda function.
 Lambda uses this value to proportionally allocate the amount of CPU
 power. For more information, see Resource Model in the AWS Lambda
 Developer Guide.
+
+---
+
+##### `paramsAndSecrets`<sup>Optional</sup> <a name="paramsAndSecrets" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.paramsAndSecrets"></a>
+
+```typescript
+public readonly paramsAndSecrets: ParamsAndSecretsLayerVersion;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.ParamsAndSecretsLayerVersion
+- *Default:* No Parameters and Secrets Extension
+
+Specify the configuration of Parameters and Secrets Extension.
+
+> [https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html](https://docs.aws.amazon.com/systems-manager/latest/userguide/ps-integration-lambda-extensions.html)
 
 ---
 
@@ -1784,6 +2350,21 @@ public readonly profilingGroup: IProfilingGroup;
 Profiling Group.
 
 > [https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html](https://docs.aws.amazon.com/codeguru/latest/profiler-ug/setting-up-lambda.html)
+
+---
+
+##### `recursiveLoop`<sup>Optional</sup> <a name="recursiveLoop" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.recursiveLoop"></a>
+
+```typescript
+public readonly recursiveLoop: RecursiveLoop;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.RecursiveLoop
+- *Default:* RecursiveLoop.Terminate
+
+Sets the Recursive Loop Protection for Lambda Function.
+
+It lets Lambda detect and terminate unintended recursive loops.
 
 ---
 
@@ -1825,6 +2406,19 @@ The relevant managed policies are "service-role/AWSLambdaBasicExecutionRole" and
 
 ---
 
+##### `runtimeManagementMode`<sup>Optional</sup> <a name="runtimeManagementMode" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.runtimeManagementMode"></a>
+
+```typescript
+public readonly runtimeManagementMode: RuntimeManagementMode;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.RuntimeManagementMode
+- *Default:* Auto
+
+Sets the runtime management configuration for a function's version.
+
+---
+
 ##### `securityGroups`<sup>Optional</sup> <a name="securityGroups" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.securityGroups"></a>
 
 ```typescript
@@ -1837,6 +2431,63 @@ public readonly securityGroups: ISecurityGroup[];
 The list of security groups to associate with the Lambda's network interfaces.
 
 Only used if 'vpc' is supplied.
+
+---
+
+##### `snapStart`<sup>Optional</sup> <a name="snapStart" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.snapStart"></a>
+
+```typescript
+public readonly snapStart: SnapStartConf;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.SnapStartConf
+- *Default:* No snapstart
+
+Enable SnapStart for Lambda Function.
+
+SnapStart is currently supported for Java 11, Java 17, Python 3.12, Python 3.13, and .NET 8 runtime,
+as well as container image (OCI) deployments.
+
+---
+
+##### ~~`systemLogLevel`~~<sup>Optional</sup> <a name="systemLogLevel" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.systemLogLevel"></a>
+
+- *Deprecated:* Use `systemLogLevelV2` as a property instead.
+
+```typescript
+public readonly systemLogLevel: string;
+```
+
+- *Type:* string
+- *Default:* "INFO"
+
+Sets the system log level for the function.
+
+---
+
+##### `systemLogLevelV2`<sup>Optional</sup> <a name="systemLogLevelV2" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.systemLogLevelV2"></a>
+
+```typescript
+public readonly systemLogLevelV2: SystemLogLevel;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.SystemLogLevel
+- *Default:* SystemLogLevel.INFO
+
+Sets the system log level for the function.
+
+---
+
+##### `tenancyConfig`<sup>Optional</sup> <a name="tenancyConfig" id="@pepperize/cdk-lambda-deno.DenoFunctionProps.property.tenancyConfig"></a>
+
+```typescript
+public readonly tenancyConfig: TenancyConfig;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.TenancyConfig
+- *Default:* Tenant isolation is not enabled
+
+The tenancy configuration for the function.
 
 ---
 
@@ -1881,6 +2532,7 @@ public readonly vpc: IVpc;
 VPC network to place Lambda network interfaces.
 
 Specify this if the Lambda function needs to access resources in a VPC.
+This is required when `vpcSubnets` is specified.
 
 ---
 
@@ -1895,8 +2547,11 @@ public readonly vpcSubnets: SubnetSelection;
 
 Where to place the network interfaces within the VPC.
 
-Only used if 'vpc' is supplied. Note: internet access for Lambdas
-requires a NAT gateway, so picking Public subnets is not allowed.
+This requires `vpc` to be specified in order for interfaces to actually be
+placed in the subnets. If `vpc` is not specify, this will raise an error.
+
+Note: Internet access for Lambda Functions requires a NAT Gateway, so picking
+public subnets is not allowed (unless `allowPublicSubnet` is set to `true`).
 
 ---
 
